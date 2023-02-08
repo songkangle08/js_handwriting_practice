@@ -1,0 +1,50 @@
+<script>
+  let obj = {
+    name: "小米",
+    age: 10,
+    bool: true,
+    n: null,
+    u: undefined,
+    sy: Symbol("XX"),
+    // big: 10n,   // Do not know how to serialize a BigInt
+    nan: NaN,
+    children: {
+      ele: "body",
+      x: 100,
+    },
+    arr: [10, 20, 30],
+    reg: /^\d+$/,
+    fn: function () {
+      console.log(this.name);
+    },
+    time: new Date(),
+    err: new Error(),
+    [Symbol("AA")]: 100,
+  };
+  // obj.obj = obj; //  Converting circular structure to JSON
+  console.log(JSON.stringify(obj));
+</script>
+
+<script>
+  /*
+   * 实现浅拷贝 
+      -> Object.assign({},obj)
+      -> {...obj}
+   */
+
+  /*
+   * 实现深拷贝
+      -> JSON.stringify(obj)
+        + JSON.stringify(obj)存在的问题
+          - bigint类型的值无法转换，直接报错。
+          - 对象中存在循环引用，直接报错。
+          - 对于属性值类型是undefined symbol function等类型，会丢失对应的属性。
+          - 对应属性值类型是error regexp等类型，属性值变为空对象。
+          - 对于属性值类型是date等类型的，属性值会变为字符串，即使再次变为对象，属性值还是字符串。
+          - 针对于属性值为NaN，nfinity和-Infinity，属性值会变为null
+          - ......
+      -> 使用递归实现深拷贝
+   */
+
+  const cloneDeep = function cloneDeep() {};
+</script>
