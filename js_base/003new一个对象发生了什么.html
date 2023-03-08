@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 示例一：
+      function Fn(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      const f = new Fn("skl", 27);
+      console.log(f instanceof Fn); // true;
+      Fn.prototype.add = function () {};
+      console.log(f); // Fn {name: 'skl', age: 27}
+
+      // 示例二：
+      function Fn1(name, age) {
+        this.name = name;
+        this.age = age;
+        // return { test: 1 };
+        return /^a-zA-Z0-9$/;
+      }
+      const f1 = new Fn1("skl", 27);
+      console.log(f1 instanceof Fn1); // false;
+      Fn1.prototype.add = function () {};
+      console.log(f1); // {test: 1}
+
+      // 示例三：
+      function Fn2(name, age) {
+        this.name = name;
+        this.age = age;
+        return function () {
+          this.name = name;
+        };
+      }
+      const f2 = new Fn2("skl", 27);
+      console.log(f2 instanceof Fn2); // false;
+      Fn2.prototype.add = function () {};
+      console.log(f2); // ƒ () {this.name = name;}
+      f2();
+      console.log(window.name); // skl
+    </script>
+  </body>
+</html>
