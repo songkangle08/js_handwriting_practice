@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Fn(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      const f = new Fn("skl", 27);
+      console.log(f);
+      console.log(f instanceof Fn); // true;
+      console.log(f instanceof Object);
+
+      console.log(f.__proto__ === Fn.prototype); // true
+      console.log(Fn.prototype.__proto__);
+
+      function _instanceof(left, right) {
+        left = left.__proto__;
+        right = right.prototype;
+        while (left) {
+          if (left === right) {
+            return true;
+          }
+          console.log(left);
+          left = left.__proto__;
+        }
+        return false;
+      }
+      console.log(_instanceof(f, Fn), 111);
+      console.log(_instanceof(f, Object), 111);
+
+      //
+    </script>
+  </body>
+</html>

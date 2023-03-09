@@ -16,6 +16,7 @@ function _new(Fn, ...args) {
   /*
     const obj = {};
     obj.__proto__ = Fn.prototype;   // ie不能直接操作__proto__
+    Object.setPrototypeOf(obj,Fn.prototype); // 相当于上面那就话看，设置实例的原型
   */
   // Object.create相当于上面的两句话
   const obj = Object.create(Fn.prototype);
@@ -30,3 +31,22 @@ function _new(Fn, ...args) {
 ```
 
 ## instanceof 关键字
+
+instanceof 运算符用于检测构造函数的**prototype**是否出现在某个实例的原型链上。
+
+```javascript
+function _instanceof(left, right) {
+  // let  proto = left.__proto__;
+  let proto = Object.getPrototypeOf(left); // 获取左边对象的原型
+  let prototype = right.prototype; // 获取右边对象的原型
+  while (true) {
+    if (!proto) return false;
+    if (proto === prototype) {
+      return true;
+    }
+    // proto = proto.__proto__
+    proto = Object.getPrototypeOf(proto); // 获取原型
+  }
+  return false;
+}
+```
